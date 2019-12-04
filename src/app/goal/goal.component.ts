@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Goal} from '../goal';
 import { from } from 'rxjs';
+import { GoalService } from '../goal-service/goal.service';
 
 @Component({
   selector: 'app-goal',
@@ -9,12 +10,7 @@ import { from } from 'rxjs';
 })
 export class GoalComponent implements OnInit {
 
-  goals: Goal[] = [
-    // new Goal(1, 'kent', 'great guy', new Date(2020, 3, 1)),
-    // new Goal(2, 'kenneth', 'handsome young man' ,  new Date(2020, 1, 2)),
-    // new Goal(3, 'joice', 'great mum' ,  new Date(2019, 11, 18)),
-    // new Goal(4, 'joz', 'great dude' ,  new Date(2020, 7, 8))
-  ];
+  goals: Goal[];
 
   toggleDetails(index) {
     this.goals[index].showDescription = ! this.goals[index].showDescription;
@@ -37,7 +33,9 @@ export class GoalComponent implements OnInit {
     this.goals.push(goal);
   }
 
-  constructor() { }
+  constructor(goalService: GoalService) {
+    this.goals = goalService.getGoal();
+  }
 
   ngOnInit() {
   }
